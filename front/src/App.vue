@@ -1,5 +1,5 @@
 <script>
-import LoginVue from "./components/login.vue"
+import LoginVue from "./components/Login.vue"
 import Navbar from "./components/Navbar.vue"
 
 export default{
@@ -7,7 +7,6 @@ export default{
     components: {
         LoginVue,
         Navbar,
-        Navbar
     }
 }
 </script>
