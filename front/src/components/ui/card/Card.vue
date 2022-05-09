@@ -1,6 +1,6 @@
 <script>
 import Comment from "./Comment.vue"
-import Avatar from "./Avatar.vue"
+import Avatar from "../Avatar.vue"
 export default {
   name: "Card",
   components: {

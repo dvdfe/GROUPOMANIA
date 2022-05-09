@@ -1,6 +1,6 @@
 <script>
 export default{
-    name : "login",
+    name : "loginPage",
 }
 </script>
 <template>

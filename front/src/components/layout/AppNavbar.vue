@@ -1,7 +1,7 @@
 <script>
-import Logo from "./Logo.vue"
+import Logo from "../ui/Logo.vue"
 export default {
-    name: 'Navbar',
+    name: 'AppNavbar',
     components: {Logo},
 }
 </script>
