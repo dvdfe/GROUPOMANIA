@@ -20,7 +20,6 @@ export default {
       <!-- /Breadcrumb -->
 
       <div class="row gutters-sm">
-        <div class="col-md-4 mb-3">
           <div class="card">
             <div class="card-body">
               <div class="d-flex flex-column align-items-center text-center">
@@ -212,9 +211,7 @@ export default {
               </li>
             </ul>
           </div>
-        </div>
-        <div class="col-md-8">
-          <div class="card mb-3">
+          <div class="card mb-3 mt-3">
             <div class="card-body">
               <div class="row">
                 <div class="col-sm-3">
@@ -265,7 +262,6 @@ export default {
               </div>
             </div>
           </div>
-        </div>
       </div>
     </div>
   </div>
