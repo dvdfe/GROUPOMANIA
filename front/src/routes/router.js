@@ -11,7 +11,9 @@ const routes = [
     {path: '/login', component: LoginPage},
     { path: '/home', component: WallPage},
     { path: '/profile', component: ProfilePage},
-    { path: '/editprofile', component: EditProfile},
+    { path: '/edit-profile', component: EditProfile},
+    { path: '/', redirect: "/home"},
+
 ]
 const router = createRouter({history: createWebHistory(), routes})
 

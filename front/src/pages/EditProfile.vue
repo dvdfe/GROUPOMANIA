@@ -78,7 +78,7 @@ export default {
             <input
               type="button"
               class="btn btn-primary px-4"
-              value="Save Changes"
+              value="Enregistrer"
             />
           </div>
         </div>

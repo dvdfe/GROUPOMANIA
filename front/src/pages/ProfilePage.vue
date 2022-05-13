@@ -35,7 +35,7 @@ export default {
                   <p class="text-muted font-size-sm">
                     Bay Area, San Francisco, CA
                   </p>
-                  <button class="btn btn-primary">Follow</button>
+                  <a href="/edit-profile"><button class="btn btn-primary">Modifier le profil</button></a>
                   <button class="btn btn-outline-primary">Message</button>
                 </div>
               </div>
