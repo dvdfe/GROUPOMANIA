@@ -5,6 +5,16 @@ export default {
   components: {
     Avatar,
   },
+  props:{
+    email:{
+      type: String,
+      required: true,
+    },
+    content: {
+      type: String,
+      required: true,
+    }
+  }
 };
 </script>
 
@@ -12,8 +22,8 @@ export default {
   <div class="d-flex gap-1">
     <Avatar></Avatar>
     <div class="d-flex flex-column comment_text p-1">
-      <p>Bryan</p>
-      <p>Sympa !</p>
+      <p>{{email}}</p>
+      <p>{{content}}</p>
     </div>
   </div>
 </template>
@@ -24,6 +34,7 @@ export default {
   background-color: #e9ecef;
   border-radius: 7px;
   width: 100%;
+  margin-block: 0.2rem;
 }
 
 .card-body > .d-flex {

@@ -1,26 +1,52 @@
 <script>
-function checkCredentials(email, password) {
-  console.log({ email, password });
+function submitForm(email, password, router) {
 
-  if (email !== "string@string.string") throw new Error("email invalide");
-  if (password !== "456456") throw new Error("mot de passe invalide");
+  const url = `http://localhost:3001/auth/login`
+  console.log(url)
 
-  const token = "my token";
-  localStorage.setItem("token", token);
-  this.$router.push("/home");
+
+
+  const options ={
+    method: "POST",
+    headers:{
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ email, password})
+    }
+    fetch(url, options)
+    .then((res) =>{
+      if (res.ok) return res.json()
+      res.text().then((err) => {
+        const {error} = JSON.parse(err)
+        console.log("error:", err)
+        this.error = error;
+        throw new Error(error)
+      })
+    })
+    .then((res) => {
+      const token = res.token;
+      localStorage.setItem("token", token);
+      router.push("/home");
+    })
+    .catch((err) => {
+      console.error({err})
+    })
+  
 }
 
 export default {
   name: "LoginPage",
   data,
-  methods: { checkCredentials, isFormInvalid },
+  methods: { submitForm, isFormInvalid },
   watch: {
     username(value) {
       const isValueEmpty = value === ""
+      this.error = null
       this.isFormInvalid(!isValueEmpty);
     },
     password(value) {
       const isValueEmpty = value === ""
+      this.error = null
       this.isFormInvalid(!isValueEmpty);
     },
   },
@@ -32,10 +58,11 @@ function isFormInvalid(bool) {
 
 function data() {
   return {
-    username: "string@string.string",
+    username: "string99@string.com",
     password: "456456",
     hasInvalidCredentials: false,
-  };
+    error: null
+  }
 }
 </script>
 <template>
@@ -60,7 +87,7 @@ function data() {
           required="true"
           @invalid="isFormInvalid"
         />
-        <label for="floatingInput">Email address</label>
+        <label for="floatingInput">Adresse mail</label>
       </div>
       <div class="form-floating">
         <input
@@ -72,17 +99,18 @@ function data() {
           required="true"
           @invalid="isFormInvalid"
         />
-        <label for="floatingPassword">Password</label>
+        <label for="floatingPassword">Mot de passe</label>
       </div>
-      <span v-if="hasInvalidCredentials" class="error-msg">Remplissez tous les champs</span>
+      <div v-if="hasInvalidCredentials" class="error-msg">Remplissez tous les champs</div>
+      <div v-if="error" class="error-msg">{{error}}</div>
 
       <button
         class="w-100 btn btn-lg btn-primary"
         type="submit"
-        @click.prevent="() => checkCredentials(this.username, this.password)"
+        @click.prevent="() => submitForm(this.username, this.password, this.$router)"
         :disabled="hasInvalidCredentials"
       >
-        Sign in
+        Connexion
       </button>
       <p class="mt-5 mb-3 text-muted">Value: {{ username }}</p>
       <p class="mt-5 mb-3 text-muted">Value: {{ password }}</p>

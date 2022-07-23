@@ -1,18 +1,14 @@
 import WallPage from '../pages/wall/WallPage.vue'
 import LoginPage from '../pages/LoginPage.vue'
-import ProfilePage from '../pages/ProfilePage.vue'
-import EditProfile from '../pages/EditProfile.vue'
 
 import {createRouter, createWebHistory} from 'vue-router'
 
 
 
 const routes = [
-    {path: '/login', component: LoginPage},
-    {path: '/signup', component: LoginPage},
-    { path: '/home', component: WallPage},
-    { path: '/profile', component: ProfilePage},
-    { path: '/edit-profile', component: EditProfile},
+    {name: "login", path: '/login', component: LoginPage},
+    {name: "signup", path: '/signup', component: LoginPage},
+    {name: "home", path: '/home', component: WallPage},
     { path: '/', redirect: "/home"},
 
 ]
@@ -26,8 +22,7 @@ if (isLoginRequired(to)){
 
 function isLoginRequired(to){
     if (!isPrivatePage(to)) return false
-    if (!isTokenInCache(to)) return true
-    if (!isTokenValid(to)) return true
+    if (!isTokenInCache()) return true
     return false
 }
 
@@ -36,12 +31,8 @@ function isPrivatePage(to){
     return !publicPages.includes(to.path)
 }
 
-function isTokenInCache(to){
+function isTokenInCache(){
     return localStorage.getItem("token") != null
 }
 
-function isTokenValid(){
-    const token = localStorage.getItem("token")
-    return token === "my token"
-}
 export  {router}

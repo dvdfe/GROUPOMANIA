@@ -5,15 +5,15 @@ const bcrypt = require('bcrypt')
 function logUser(req, res){
     const {email, password} = req.body
     const user = getUser(email)
-    if (user == null) return res.status(404).send("User not found")
+    if (user == null) return res.status(404).send({error:"Utilisateur introuvable"})
     
     checkPassword(user, password)
     .then((isPasswordCorrect) =>{
-        if (!isPasswordCorrect) return res.status(401).send("Wrong password")
+        if (!isPasswordCorrect) return res.status(401).send({error: "Mauvais mot de passe"})
         const token = makeToken(email)
         res.send({token: token, email: user.email})
     })
-    .catch((err) => res.status(500).send(err))
+    .catch((error) => res.status(500).send({error}))
 }
 
 
@@ -31,15 +31,15 @@ function checkPassword(user, password){
 
 function signupUser(req, res){
     const {email, password, confirmPassword} = req.body
-    if (password !== confirmPassword) return res.status(400).send("Password don't match")
+    if (password !== confirmPassword) return res.status(400).send({error:"Les mots de passe ne correspondent pas "})
     const user = getUser(email)
-    if (user != null) return res.status(400).send("User already exists")
+    if (user != null) return res.status(400).send({error: "L'utilisateur existe déja"})
     hashPassword(password)
     .then((hash) => {
         saveUser({email, password: hash})
         res.send({email: email, password: hash})
     })
-    .catch((err) => new Error(err))
+    .catch((error) => new Error(error))
 }
 
 function saveUser(user){
