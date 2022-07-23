@@ -10,6 +10,7 @@ const { postRouter } = require("./routes/posts")
 app.use(cors())
 app.use(bodyParser.json())
 
+app.use("/uploads", express.static("uploads"))
 app.use("/posts", postRouter)
 app.post("/auth/login", logUser)
 app.post("/auth/signup", signupUser)
