@@ -1,4 +1,3 @@
-
 // MDP Hashé de "456456"
 
 const mockHash = "$2b$10$A5H.lJMDPAzizmLM.csj/uix4wqo2ghcBN.bZtjyVbyDrH6KeaKnS"
@@ -10,5 +9,8 @@ const user3 = { email: "string10@string.com", password: mockHash}
 
 const users = [user1, user2, user3]
 
+const { PrismaClient } = require("@prisma/client")
+const prisma = new PrismaClient()
 
-module.exports = {users}
+
+module.exports = {users, prisma}

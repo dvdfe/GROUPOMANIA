@@ -71,10 +71,31 @@ export default {
 #file-input {
   display: none;
 }
+
+button {
+  background-color: #ffd7d7;
+  border: #ffd7d7;
+  color: #4e5166;
+}
+
+button:hover{
+  background-color: #FD2D01;
+}
+
+
 label {
   display: grid;
   place-content: center;
+  background-color: #ffd7d7;
+  border: #ffd7d7;
+  color: #4e5166;
+
 }
+
+label:hover{
+  background-color: #FD2D01;
+}
+
 div span {
   margin: 1rem;
 }

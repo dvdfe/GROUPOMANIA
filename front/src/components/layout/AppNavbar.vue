@@ -1,46 +1,80 @@
 <script>
-import Logo from "../ui/svg/Logo.vue"
+import Logo from "../ui/svg/Logo.vue";
 export default {
-    name: 'AppNavbar',
-    components: {Logo},
-    data(){
-      return{
-        isLoggedIn: false
-      }
-    },
-    created(){
-      const token = localStorage.getItem("token")
-      if (token != null){
-        this.isLoggedin = true
-      }
-    },
-    methods: {
-      logOut(){
-        localStorage.removeItem("token")
-        this.$router.push("/login")
-      }
+  name: "AppNavbar",
+  components: { Logo },
+  data() {
+    return {
+      isLoggedIn: false
     }
+  },
+  created() {
+    const token = localStorage.getItem("token")
+    if (token != null) {
+      this.isLoggedIn = true
+    }
+  },
+  methods: {
+    logout() {
+      localStorage.removeItem("token")
+      this.$router.go()
+    }
+  }
 }
 </script>
 <template>
-  <header class="p-3 bg-dark text-white">
+  <header class="color-Navbar p-3 bg-dark text-white">
     <div class="container">
-      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-        <router-link to="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-        <Logo class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"/>
+      <div
+        class="
+          d-flex
+          flex-wrap
+          align-items-center
+          justify-content-center justify-content-lg-start
+        "
+      >
+        <router-link
+          to="/"
+          class="
+            d-flex
+            align-items-center
+            mb-2 mb-lg-0
+            text-white text-decoration-none
+          "
+        >
+          <Logo
+            class="bi me-2"
+            width="40"
+            height="32"
+            role="img"
+            aria-label="Bootstrap"
+          />
         </router-link>
 
-        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-          <li><router-link to="/home" class="nav-link px-2 text-secondary">Accueil</router-link></li>
+        <ul
+          class="
+            nav
+            col-12 col-lg-auto
+            me-lg-auto
+            mb-2
+            justify-content-center
+            mb-md-0
+          "
+        >
         </ul>
 
-        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
-          <input type="search" class="form-control form-control-dark" placeholder="Rechercher..." aria-label="Search">
-        </form>
-
         <div class="text-end">
-          <button @click="logOut" v-if="this.isLoggedIn" type="button" class="btn btn-outline-light me-2">Déconnexion</button>
-          <button v-if="!this.isLoggedIn" type="button" class="btn btn-primary">Connexion</button>
+          <button
+            @click="this.logout"
+            v-if="this.isLoggedIn"
+            type="button"
+            class="btn btn-outline-light me-2"
+          >
+            Déconnexion
+          </button>
+          <button v-if="!this.isLoggedIn" type="button" class="btn-color btn btn-primary">
+            Connexion
+          </button>
         </div>
       </div>
     </div>
@@ -49,10 +83,15 @@ export default {
 <style>
 .b-example-divider {
   height: 3rem;
-  background-color: rgba(0, 0, 0, .1);
-  border: solid rgba(0, 0, 0, .15);
+  background-color: rgba(0, 0, 0, 0.1);
+  border: solid rgba(0, 0, 0, 0.15);
   border-width: 1px 0;
-  box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+  box-shadow: inset 0 0.5em 1.5em rgba(0, 0, 0, 0.1),
+    inset 0 0.125em 0.5em rgba(0, 0, 0, 0.15);
+}
+
+.btn-color{
+  background-color: #ffd7d7;
 }
 
 .form-control-dark {
@@ -64,11 +103,11 @@ export default {
   color: #fff;
   background-color: var(--bs-dark);
   border-color: #fff;
-  box-shadow: 0 0 0 .25rem rgba(255, 255, 255, .25);
+  box-shadow: 0 0 0 0.25rem rgba(255, 255, 255, 0.25);
 }
 
 .bi {
-  vertical-align: -.125em;
+  vertical-align: -0.125em;
   fill: currentColor;
 }
 
@@ -81,16 +120,16 @@ export default {
 }
 
 .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
-      }
+  font-size: 1.125rem;
+  text-anchor: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
 
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
+@media (min-width: 768px) {
+  .bd-placeholder-img-lg {
+    font-size: 3.5rem;
+  }
+}
 </style>
