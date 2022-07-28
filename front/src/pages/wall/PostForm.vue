@@ -21,7 +21,6 @@ export default {
       const options = {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
-          // "Content-Type": "multipart/form-data",
           Accept: "application/json",
         },
         method: "POST",

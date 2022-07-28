@@ -72,9 +72,6 @@ export default {
           >
             Déconnexion
           </button>
-          <button v-if="!this.isLoggedIn" type="button" class="btn-color btn btn-primary">
-            Connexion
-          </button>
         </div>
       </div>
     </div>

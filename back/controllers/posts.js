@@ -28,7 +28,6 @@ async function getPosts(req, res) {
     },
   });
   res.send({ posts: posts, email });
-  console.log("post", posts);
 }
 
 async function createPost(req, res) {
@@ -39,7 +38,6 @@ async function createPost(req, res) {
     const userId = user.id;
     const post = { content, userId };
     addImageUrlToPost(req, post);
-    console.log("post:", post);
 
     const result = await prisma.post.create({ data: post });
     res.send({ post: result });
@@ -73,13 +71,11 @@ async function deletePost(req, res) {
       },
     },
   });
-  console.log("post", post)
   if (post == null) {
     return res.status(404).send({ error: "La publication n'a pas été trouvé" });
   }
   const email = req.email;
   if (email !== post.user.email && email !== "admin@gmail.com") {
-    console.log("email", post.user)
     return res
       .status(403)
       .send({ error: "Vous n'êtes pas le propriétaire de la publication" });
@@ -104,7 +100,6 @@ async function createComment(req, res) {
       },
     },
   });
-  console.log("post:", post);
   if (post == null) {
     return res
       .status(404)
@@ -118,9 +113,7 @@ async function createComment(req, res) {
   const userId = userCommenting.id
 
   const commentToSend = { userId, postId, content: req.body.comment };
-  console.log(commentToSend);
   const comment = await prisma.comment.create({ data: commentToSend });
-  console.log(comment);
   res.send({ comment });
 }
 

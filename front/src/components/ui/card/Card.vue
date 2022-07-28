@@ -19,8 +19,6 @@ export default {
   mounted() {},
   methods: {
     addComment(e) {
-      console.log(this.currentComment)
-      console.log(this.$props.id)
       const { url, headers } = getUrlAndHeaders()
       const options = {
         headers: { ...headers, "Content-Type": "application/json" },
@@ -38,14 +36,11 @@ export default {
           }
         })
         .then((res) => {
-          console.log("res:", res)
           this.$router.go()
-          // this.currentComment = null
         })
         .catch((err) => console.log("err:", err))
     },
  deletePost(e) {
-      console.log("id de la publication à supprimer:", this.$props.id)
       const { url, headers } = getUrlAndHeaders()
       fetch(url + "posts/" + this.$props.id, {
         headers: { ...headers, "Content-Type": "application/json" },
@@ -59,7 +54,6 @@ export default {
           }
         })
         .then((res) => {
-          console.log("res:", res)
           this.$router.go()
         })
         .catch((err) => console.log("err:", err))    },

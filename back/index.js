@@ -19,7 +19,7 @@ app.use("/uploads", express.static("uploads"))
 app.use("/posts", postRouter)
 app.post("/auth/login", logUser)
 app.post("/auth/signup", signupUser)
-app.delete("/deleteUser", deleteUser)
+app.post("/deleteUser", deleteUser)
 
 
 

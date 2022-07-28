@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 const { prisma } = require("../database/database.js");
 const bcrypt = require("bcrypt");
+const { deletePost } = require("./posts.js");
 
 async function logUser(req, res) {
   const { email, password } = req.body;
@@ -14,7 +15,6 @@ async function logUser(req, res) {
       return res.status(401).send({ error: "Mauvais mot de passe" });
     const token = makeToken(email);
     res.send({ token: token, email: user.email });
-    console.log("body:", body)
   } catch (error) {
     res.status(500).send({ error });
   }
@@ -51,7 +51,6 @@ async function signupUser(req, res) {
   }
 }
 
-
 function saveUser(user) {
   return prisma.user.create({ data: user });
 }
@@ -60,16 +59,52 @@ function hashPassword(password) {
   return bcrypt.hash(password, 10);
 }
 
-async function deleteUser(req, res){
+async function deleteUser(req, res) {
   const email = req.body.email;
-  console.log("req.body:", req.body)
-  const deleteUser = await prisma.user.delete({
+  const userInDb = await getUser(email);
 
-    where: { 
-      email: email,
+  const deleteComment = await prisma.comment.deleteMany({
+    where: {
+      userId: userInDb.id,
     },
-  })
-  res.json(deleteUser)
+  });
+
+  const findPosts = await prisma.post.findMany({
+    where: {
+      userId: userInDb.id,
+    },
+  });
+  try {
+    for (post of findPosts) {
+      try {
+        await prisma.comment.deleteMany({
+          where: {
+            postId: post.id,
+          },
+        });
+      } catch (error) {
+        throw new Error(
+          "Erreur lors de la suppression des commentaires de l'utilisateur"
+        );
+      }
+      await prisma.post.delete({
+        where: {
+          id: post.id,
+        },
+      });
+    }
+  } catch (error) {
+    throw new Error(
+      "Erreur lors de la suppression des publications de l'utilisateur"
+    );
+  }
+
+  await prisma.user.delete({
+    where: {
+      id: userInDb.id,
+    },
+  });
+  return res.sendStatus(200);
 }
 
 module.exports = { logUser, signupUser, deleteUser };

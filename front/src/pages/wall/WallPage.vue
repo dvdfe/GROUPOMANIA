@@ -2,6 +2,7 @@
 import Card from "../../components/ui/card/Card.vue";
 import PostForm from "./PostForm.vue";
 import { getUrlAndHeaders } from "./../services/fetchOptions";
+import axios from 'axios';
 
 export default {
   name: "WallPage",
@@ -10,36 +11,30 @@ export default {
     PostForm,
   },
   methods: {
-    async redirectToLoginIfNoToken() {
-      const token = await Promise.resolve(localStorage.getItem("token"));
-      if (token == null) {
-        this.$router.push("/login");
+
+    deleteUser: async function (email){
+      const { url } = getUrlAndHeaders();
+      const body = JSON.stringify({
+        email,
+        method: "DELETE",
+      });
+      const options = {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      };
+      try {
+        await axios.post(url + "deleteUser", body, options)
+        localStorage.removeItem("token")
+        this.$router.go("/login")
+      } catch (error) {
+        throw new Error("Erreur lors de la suppression du compte:" + error);
       }
     },
-    deleteUser(e){
-      const { url, headers } = getUrlAndHeaders()
-      console.log("url:", headers)
-      fetch(url + "deleteUser", {
-        headers: { ...headers, "Content-Type": "application/json" },
-        method: "DELETE"
-      })
-        .then((res) => {
-          if (res.status === 200) {
-            return res.json()
-          } else {
-            throw new Error("Echec de la suppression du compte")
-          }
-        })
-        .then((res) => {
-          console.log("res:", res)
-          this.$router.go()
-        })
-        .catch((err) => console.log("err:", err)) 
-    }
   },
   mounted() {
-    this.redirectToLoginIfNoToken();
-
     const url = "http://localhost:3001/posts";
 
     const options = {
@@ -47,7 +42,6 @@ export default {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     };
-    console.log(url, options);
     fetch(url, options)
       .then((res) => {
         if (res.status === 200) {
@@ -60,7 +54,6 @@ export default {
         const { email, posts } = res;
         this.posts = posts;
         this.currentUser = email;
-        console.log("this.posts:", this.posts);
       })
       .catch((err) => console.log("err", err));
   },
@@ -75,7 +68,8 @@ export default {
 
 <template>
   <div v-if="currentUser" class="container-sm">
-    <span class="deleteUser" @click="deleteUser">Supprimer mon compte</span>
+    <span class="deleteUser" @click.prevent="
+          () => deleteUser(this.currentUser, this.$router)">Supprimer mon compte</span>
     <div class="col-sm-12">
       <h4 class="text-center">Bienvenue, {{ currentUser }}</h4>
     </div>
@@ -102,13 +96,11 @@ input {
   display: none;
 }
 
-.deleteUser{
+.deleteUser {
   cursor: pointer;
 }
 
-.deleteUser:hover{
+.deleteUser:hover {
   color: red;
 }
-
-
 </style>

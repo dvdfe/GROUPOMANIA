@@ -19,7 +19,7 @@ export default {
     toggleLoginMode() {
       this.isLoginMode = !this.isLoginMode
     },
-    signUp: async function (email, password, confirmPassword, router) {
+    signUp: async function (email, password, confirmPassword) {
       const { url } = getUrlAndHeaders()
       const body = JSON.stringify({
         email,
@@ -35,7 +35,6 @@ export default {
       }
       try {
         await axios.post(url + "auth/signup", body, options)
-        console.log("router:", router)
         this.$router.go("/")
       } catch (err) {
         const error = err.response.data.error
@@ -58,7 +57,6 @@ export default {
   }
 }
 function setFormValidity(bool) {
-  console.log("setFormValidity:", bool)
   this.hasInvalidCredentials = !bool
 }
 function loginUser(email, password,) {
@@ -138,7 +136,7 @@ function loginUser(email, password,) {
           required="true"
           @invalid="setFormValidity"
         />
-        <label for="floatingPassword">Password</label>
+        <label for="floatingPassword">Mot de passe</label>
       </div>
       <div v-if="hasInvalidCredentials" class="error-msg">Les champs ne peuvent pas être vides</div>
       <div v-if="!hasInvalidCredentials && error" class="error-msg">{{ error }}</div>
