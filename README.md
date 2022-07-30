@@ -21,7 +21,7 @@ Installation et déploiement du backend:
 - Appuyer sur le menu déroulant à droite de "Connect with", selectionner "Prisma"
 - Appuyer sur "New password"
 - Copier la chaîne de caractère en dessous de .env 
-- Ajouter au fichier .env les informations copiées
+- Ajouter au fichier .env du dossier back les informations copiées
 - Accéder au dossier back du projet et exécuter la commande "npx prisma db push"
 - Démarrer le serveur du backend en exécutant la commande : node index ou la commande nodemon index(si la commande nodemon est disponible sur votre ordinateur) 
 Votre application backend est maintenant lancé sur le port 3001. Vous pouvez y accéder via l'url : localhost:3001
