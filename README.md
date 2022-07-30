@@ -1,4 +1,9 @@
 # GROUPOMANIA
+
+Version de node utilisé pour le projet : v14.17.0
+Version de npm utilisé pour le projet : 6.14.13
+Version de vue utilisé pour le projet : 3.2.33
+
 Prérequis:
 - npm 
 - node
@@ -9,9 +14,16 @@ Installation et déploiement du backend:
 - Créer un dossier "uploads" : mkdir uploads
 - Créer un fichier ".env" : touch .env
 - Y ajouter MDP=456456
-- Ajouter au fichier .env les informations suivantes : DATABASE_URL= URL_CONNEXION_BASE_DE_DONNEES_PLANETSCALE
-- Remplacer la chaîne de caractère URL_CONNEXION_BASE_DE_DONNEES_PLANETSCALE, par l'url de connexion à votre base de données planet scale
-- Démarrer le serveur du backend en exécutant la commande : node server ou la commande nodemon index(si la commande nodemon est disponible sur votre ordinateur) 
+- Aller sur le site https://planetscale.com/, cliquer sur le bouton "Get Started"
+- Créer un compte sur le site, allez au bout des explications et appuyer sur le bouton "Create your first database"
+- Creer un nom pour la base de donnée dans le formulaire "Name" et appuyer sur le bouton "Create database"
+- Appuyer sur le bouton "Connect"
+- Appuyer sur le menu déroulant à droite de "Connect with", selectionner "Prisma"
+- Appuyer sur "New password"
+- Copier la chaîne de caractère en dessous de .env 
+- Ajouter au fichier .env les informations copiées
+- Accéder au dossier back du projet et exécuter la commande "npx prisma db push"
+- Démarrer le serveur du backend en exécutant la commande : node index ou la commande nodemon index(si la commande nodemon est disponible sur votre ordinateur) 
 Votre application backend est maintenant lancé sur le port 3001. Vous pouvez y accéder via l'url : localhost:3001
 
 Installation et déploiement du frontend: 

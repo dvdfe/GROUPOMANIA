@@ -44,7 +44,7 @@ export default {
         >
           <Logo
             class="bi me-2"
-            width="40"
+            width="200"
             height="32"
             role="img"
             aria-label="Bootstrap"

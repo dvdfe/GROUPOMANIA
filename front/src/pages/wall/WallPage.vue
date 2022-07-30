@@ -34,6 +34,7 @@ export default {
       }
     },
   },
+  
   mounted() {
     const url = "http://localhost:3001/posts";
 
@@ -55,8 +56,10 @@ export default {
         this.posts = posts;
         this.currentUser = email;
       })
-      .catch((err) => console.log("err", err));
+      .catch((err) => console.log("err", err))
+      
   },
+      
   data() {
     return {
       posts: [],
