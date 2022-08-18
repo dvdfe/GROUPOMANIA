@@ -1,6 +1,6 @@
 # GROUPOMANIA
 
-Groupomania est réseau social d'entreprise où l'on peut se créer un compte, créer et supprimer une publication ou un commentaire. 
+Groupomania est réseau social d'entreprise où l'on peut se créer un compte dans une base de données, créer et supprimer une publication ou un commentaire. 
 
 - Version de node utilisé pour le projet : v14.17.0
 - Version de npm utilisé pour le projet : 6.14.13
